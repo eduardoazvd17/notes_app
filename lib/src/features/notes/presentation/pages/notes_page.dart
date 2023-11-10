@@ -3,11 +3,13 @@ import 'package:notesapp/src/core/widgets/custom_scaffold_widget.dart';
 import 'package:notesapp/src/core/widgets/custom_text_field_widget.dart';
 import 'package:notesapp/src/core/widgets/privacy_policy_widget.dart';
 import 'package:notesapp/src/features/notes/data/models/note_model.dart';
+import 'package:notesapp/src/features/notes/presentation/controllers/notes_controller.dart';
 
 import '../widgets/note_tile_widget.dart';
 
 class NotesPage extends StatelessWidget {
-  const NotesPage({super.key});
+  final NotesController notesController;
+  const NotesPage({super.key, required this.notesController});
 
   @override
   Widget build(BuildContext context) {
