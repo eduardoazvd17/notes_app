@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:notesapp/src/core/widgets/custom_scaffold_widget.dart';
 import 'package:notesapp/src/core/widgets/custom_text_field_widget.dart';
@@ -96,7 +97,7 @@ class NotesPage extends StatelessWidget {
                                       },
                                     );
                                   },
-                                ),
+                                ).animate().fade(),
                               );
                             },
                           );

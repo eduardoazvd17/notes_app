@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:notesapp/src/core/utils/route_utils.dart';
 import 'package:notesapp/src/core/widgets/custom_scaffold_widget.dart';
@@ -46,7 +47,7 @@ class LoginPage extends StatelessWidget {
                   onSubmitted: (_) {
                     passwordTextFieldFocus.requestFocus();
                   },
-                ),
+                ).animate().slideY().fade(),
                 Observer(
                   builder: (_) => Padding(
                     padding:
@@ -58,7 +59,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 CustomTextFieldWidget(
                   focusNode: passwordTextFieldFocus,
                   controller: passwordTextFieldController,
@@ -72,7 +73,7 @@ class LoginPage extends StatelessWidget {
                       password: passwordTextFieldController.text,
                     ),
                   ),
-                ),
+                ).animate().slideX().fade(),
                 Observer(
                   builder: (_) => Padding(
                     padding:
@@ -84,7 +85,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 35),
+                const SizedBox(height: 25),
                 ElevatedButton(
                   onPressed: () => _makeLogin(
                     context,
@@ -94,7 +95,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   style: ThemeUtils.loginButtonStyle,
                   child: const Text('Entrar'),
-                ),
+                ).animate().fade(),
               ],
             ),
           ),
