@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:notesapp/src/core/widgets/custom_scaffold_widget.dart';
 import 'package:notesapp/src/core/widgets/custom_text_field_widget.dart';
 import 'package:notesapp/src/core/widgets/privacy_policy_widget.dart';
-import 'package:notesapp/src/features/notes/data/models/note_model.dart';
 import 'package:notesapp/src/features/notes/presentation/controllers/notes_controller.dart';
-
-import '../widgets/note_tile_widget.dart';
+import 'package:notesapp/src/features/notes/presentation/widgets/note_tile_widget.dart';
 
 class NotesPage extends StatelessWidget {
   final NotesController notesController;
@@ -13,6 +12,9 @@ class NotesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textController = TextEditingController();
+    final focusNode = FocusNode();
+
     return CustomScaffoldWidget(
       child: Column(
         children: [
@@ -30,29 +32,46 @@ class NotesPage extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView(
-                      children: [
-                        NoteTileWidget(
-                          noteModel: NoteModel(
-                            text: 'mock text 1',
-                            creationDate: DateTime.now(),
-                          ),
-                        ),
-                        NoteTileWidget(
-                          noteModel: NoteModel(
-                            text: 'mock text 2',
-                            creationDate: DateTime.now(),
-                          ),
-                        ),
-                      ],
+                    child: Observer(
+                      builder: (_) {
+                        if (notesController.notes == null) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else if (notesController.notes!.isEmpty) {
+                          return const Center(
+                            child: Text('Não há notas adicionadas'),
+                          );
+                        } else {
+                          return ListView.builder(
+                            itemCount: notesController.notes!.length,
+                            itemBuilder: (context, index) {
+                              final noteModel = notesController.notes![index];
+                              return NoteTileWidget(noteModel: noteModel);
+                            },
+                          );
+                        }
+                      },
                     ),
                   ),
                 ),
                 const SizedBox(height: 35),
-                const CustomTextFieldWidget(
-                  hint: 'Digite seu texto',
-                  textAlign: TextAlign.center,
-                ),
+                Observer(builder: (_) {
+                  return CustomTextFieldWidget(
+                    enabled: notesController.notes != null,
+                    autofocus: true,
+                    focusNode: focusNode,
+                    controller: textController,
+                    hint: 'Digite seu texto',
+                    textAlign: TextAlign.center,
+                    onSubmitted: (text) {
+                      if (text.trim().isEmpty) return;
+                      notesController.add(text.trim());
+                      textController.clear();
+                      focusNode.requestFocus();
+                    },
+                  );
+                }),
               ],
             ),
           ),

@@ -13,6 +13,9 @@ class CustomTextFieldWidget extends StatelessWidget {
   final void Function(String)? onSubmitted;
   final TextInputAction textInputAction;
   final FocusNode? focusNode;
+  final bool autofocus;
+  final bool enabled;
+
   const CustomTextFieldWidget({
     super.key,
     this.label,
@@ -25,6 +28,8 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.onSubmitted,
     this.textInputAction = TextInputAction.done,
     this.focusNode,
+    this.autofocus = false,
+    this.enabled = true,
   });
 
   @override
@@ -47,6 +52,8 @@ class CustomTextFieldWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: TextField(
+                enabled: enabled,
+                autofocus: autofocus,
                 focusNode: focusNode,
                 controller: controller,
                 onChanged: onChanged,

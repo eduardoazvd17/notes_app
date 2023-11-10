@@ -1,23 +1,28 @@
-class NoteModel {
-  final String text;
-  final DateTime creationDate;
+import 'package:equatable/equatable.dart';
 
-  NoteModel({
+class NoteModel extends Equatable {
+  final int id;
+  final String text;
+
+  const NoteModel({
+    required this.id,
     required this.text,
-    required this.creationDate,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'id': id,
       'text': text,
-      'creationDate': creationDate,
     };
   }
 
   factory NoteModel.fromMap(Map<String, dynamic> map) {
     return NoteModel(
+      id: map['id'],
       text: map['text'],
-      creationDate: map['creationDate'],
     );
   }
+
+  @override
+  List<Object?> get props => [id, text];
 }

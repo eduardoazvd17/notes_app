@@ -31,6 +31,8 @@ abstract class LoginControllerBase with Store {
     } else if (regexp.stringMatch(password) != password) {
       passwordValidationText =
           "Sua senha deve conter apenas caracteres entre a-Z e 0-9.";
+    } else if (password.length < 2) {
+      passwordValidationText = "Sua senha não pode ter menos de 2 caracteres.";
     } else if (password.length > 20) {
       passwordValidationText = "Sua senha não pode ultrapassar 20 caracteres.";
     } else if (password.endsWith(' ')) {
