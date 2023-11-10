@@ -66,6 +66,7 @@ class LoginPage extends StatelessWidget {
                   onChanged: loginController.validatePassword,
                   prefixIcon: Icons.lock,
                   label: 'Senha',
+                  obscureText: true,
                   onSubmitted: (_) => _makeLogin(
                     context,
                     UserModel(

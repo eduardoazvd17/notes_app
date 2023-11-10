@@ -53,6 +53,7 @@ class CustomTextFieldWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: TextField(
                 enabled: enabled,
+                obscureText: obscureText,
                 autofocus: autofocus,
                 focusNode: focusNode,
                 controller: controller,
