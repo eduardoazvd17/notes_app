@@ -66,7 +66,34 @@ class NotesPage extends StatelessWidget {
                                       textController.text = note.text;
                                     }
                                   },
-                                  onDelete: notesController.remove,
+                                  onDelete: (note) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (_) {
+                                        return AlertDialog(
+                                          title: const Text('Remover'),
+                                          content: const Text(
+                                              'Deseja realmente remover esta nota?'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                notesController.remove(note);
+
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Sim'),
+                                            ),
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('Não'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               );
                             },

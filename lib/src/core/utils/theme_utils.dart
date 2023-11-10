@@ -31,18 +31,6 @@ class ThemeUtils {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: primaryColor,
-          background: backgroundColor,
-          onBackground: foregroundColor,
-          primary: primaryColor,
-          onPrimary: foregroundColor,
-          secondary: backgroundColor,
-          onSecondary: foregroundColor,
-          tertiary: secondaryBackgroundColor,
-          onTertiary: foregroundColor,
-          surfaceTint: Colors.white,
-          outline: borderColor,
-          shadow: borderColor,
-          error: Colors.red,
         ),
       );
 }

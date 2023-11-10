@@ -20,7 +20,10 @@ abstract class NotesControllerBase with Store {
   void add(String noteText) {
     if (editingNote == null) {
       notes?.add(
-        NoteModel(id: notes?.length ?? 0, text: noteText),
+        NoteModel(
+          id: DateTime.now().millisecondsSinceEpoch,
+          text: noteText,
+        ),
       );
     } else {
       final index = notes!.indexOf(editingNote);
