@@ -24,7 +24,10 @@ class CustomScaffoldWidget extends StatelessWidget {
         backgroundColor: Colors.transparent,
         appBar: appBar,
         body: SafeArea(
-          child: child ?? const SizedBox(),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: child ?? const SizedBox(),
+          ),
         ),
       ),
     );

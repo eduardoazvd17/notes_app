@@ -7,10 +7,24 @@ class ThemeUtils {
   static const borderColor = Color(0xff343c3c);
   static const foregroundColor = Color(0xff1e2227);
 
+  static TextStyle get labelTextStyle => const TextStyle(
+        fontSize: 18,
+        color: Colors.white,
+      );
+
+  static ButtonStyle get loginButtonStyle => ButtonStyle(
+        padding: const MaterialStatePropertyAll(
+          EdgeInsets.symmetric(vertical: 13, horizontal: 50),
+        ),
+        textStyle: MaterialStatePropertyAll(labelTextStyle),
+        backgroundColor: const MaterialStatePropertyAll(primaryColor),
+        foregroundColor: const MaterialStatePropertyAll(Colors.white),
+      );
+
   static ThemeData get themeData => ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.white,
+          seedColor: primaryColor,
           background: backgroundColor,
           onBackground: foregroundColor,
           primary: primaryColor,
