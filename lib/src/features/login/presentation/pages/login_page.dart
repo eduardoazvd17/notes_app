@@ -22,12 +22,12 @@ class LoginPage extends StatelessWidget {
                   prefixIcon: Icons.person,
                   label: 'Usuário',
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 const AuthTextFieldWidget(
                   prefixIcon: Icons.lock,
                   label: 'Senha',
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 35),
                 ElevatedButton(
                   onPressed: () {},
                   style: ThemeUtils.loginButtonStyle,
