@@ -9,15 +9,24 @@ abstract class NotesControllerBase with Store {
   @observable
   ObservableList<NoteModel>? notes;
 
+  @observable
+  NoteModel? editingNote;
+
   Future<void> loadNotes() async {
     final data = await NotesService.loadNotes();
     notes = ObservableList<NoteModel>.of(data.map((e) => NoteModel.fromMap(e)));
   }
 
   void add(String noteText) {
-    notes?.add(
-      NoteModel(id: notes?.length ?? 0, text: noteText),
-    );
+    if (editingNote == null) {
+      notes?.add(
+        NoteModel(id: notes?.length ?? 0, text: noteText),
+      );
+    } else {
+      final index = notes!.indexOf(editingNote);
+      notes![index] = editingNote!.copyWith(text: noteText);
+    }
+    editingNote = null;
     NotesService.saveNotes(notes!.map((e) => e.toMap()));
   }
 
@@ -26,11 +35,11 @@ abstract class NotesControllerBase with Store {
     NotesService.saveNotes(notes!.map((e) => e.toMap()));
   }
 
-  void update(NoteModel note) {
-    if (notes == null) return;
-    final currentNote = notes!.firstWhere((e) => e.id == note.id);
-    final index = notes!.indexOf(currentNote);
-    notes![index] = note;
-    NotesService.saveNotes(notes!.map((e) => e.toMap()));
+  void toggleEdit(NoteModel note) {
+    if (editingNote?.id == note.id) {
+      editingNote = null;
+    } else {
+      editingNote = note;
+    }
   }
 }

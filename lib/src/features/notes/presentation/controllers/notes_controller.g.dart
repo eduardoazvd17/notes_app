@@ -25,10 +25,27 @@ mixin _$NotesController on NotesControllerBase, Store {
     });
   }
 
+  late final _$editingNoteAtom =
+      Atom(name: 'NotesControllerBase.editingNote', context: context);
+
+  @override
+  NoteModel? get editingNote {
+    _$editingNoteAtom.reportRead();
+    return super.editingNote;
+  }
+
+  @override
+  set editingNote(NoteModel? value) {
+    _$editingNoteAtom.reportWrite(value, super.editingNote, () {
+      super.editingNote = value;
+    });
+  }
+
   @override
   String toString() {
     return '''
-notes: ${notes}
+notes: ${notes},
+editingNote: ${editingNote}
     ''';
   }
 }

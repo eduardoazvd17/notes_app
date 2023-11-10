@@ -5,12 +5,14 @@ import '../../data/models/note_model.dart';
 
 class NoteTileWidget extends StatelessWidget {
   final NoteModel noteModel;
+  final bool isEditing;
   final void Function(NoteModel)? onEdit;
   final void Function(NoteModel)? onDelete;
 
   const NoteTileWidget({
     super.key,
     required this.noteModel,
+    this.isEditing = false,
     this.onEdit,
     this.onDelete,
   });
@@ -33,9 +35,10 @@ class NoteTileWidget extends StatelessWidget {
               const SizedBox(width: 5),
               InkWell(
                 onTap: () => onEdit?.call(noteModel),
-                child: const Icon(
+                child: Icon(
                   Icons.edit,
                   size: 28,
+                  color: isEditing ? ThemeUtils.primaryColor : null,
                 ),
               ),
               const SizedBox(width: 10),

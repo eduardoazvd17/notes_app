@@ -9,6 +9,10 @@ class NoteModel extends Equatable {
     required this.text,
   });
 
+  NoteModel copyWith({String? text}) {
+    return NoteModel(id: id, text: text ?? this.text);
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,

@@ -53,7 +53,22 @@ class NotesPage extends StatelessWidget {
                             itemCount: notesController.notes!.length,
                             itemBuilder: (context, index) {
                               final noteModel = notesController.notes![index];
-                              return NoteTileWidget(noteModel: noteModel);
+                              return Observer(
+                                builder: (_) => NoteTileWidget(
+                                  noteModel: noteModel,
+                                  isEditing: notesController.editingNote?.id ==
+                                      noteModel.id,
+                                  onEdit: (note) {
+                                    notesController.toggleEdit(note);
+                                    if (notesController.editingNote == null) {
+                                      textController.clear();
+                                    } else {
+                                      textController.text = note.text;
+                                    }
+                                  },
+                                  onDelete: notesController.remove,
+                                ),
+                              );
                             },
                           );
                         }
