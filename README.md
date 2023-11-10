@@ -17,23 +17,23 @@ A aplicação foi desenvolvida utilizando Flutter e adotando padrões de código
 #### Tela de login
 
 <div align="center">
-	<img width="200" height="400" src="./screenshots/login.png"/>
+	<img width="200" height="450" src="./screenshots/login.png"/>
     <span style="padding-left:5px"></span>
-    <img width="200" height="400" src="./screenshots/login_validation.png"/>
+    <img width="200" height="450" src="./screenshots/login_validation.png"/>
 </div>
 
 #### Tela de Notas
 
 <div align="center">
-	<img width="200" height="400" src="./screenshots/notes_empty.png"/>
+	<img width="200" height="450" src="./screenshots/notes_empty.png"/>
     <span style="padding-left:5px"></span>
-    <img width="200" height="400" src="./screenshots/notes.png"/>
+    <img width="200" height="450" src="./screenshots/notes.png"/>
 </div>
 
 #### Editando/Deletando Notas
 
 <div align="center">
-    <img width="200" height="400" src="./screenshots/editing.png"/>
+    <img width="200" height="450" src="./screenshots/editing.png"/>
     <span style="padding-left:5px"></span>
-    <img width="200" height="400" src="./screenshots/delete_dialog.png"/>
+    <img width="200" height="450" src="./screenshots/delete_dialog.png"/>
 </div>
