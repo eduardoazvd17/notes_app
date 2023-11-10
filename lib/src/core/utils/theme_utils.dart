@@ -7,8 +7,14 @@ class ThemeUtils {
   static const borderColor = Color(0xff343c3c);
   static const foregroundColor = Color(0xff1e2227);
 
+  static TextStyle get boldTextStyle => const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.bold,
+        color: foregroundColor,
+      );
+
   static TextStyle get labelTextStyle => const TextStyle(
-        fontSize: 18,
+        fontSize: 16,
         color: Colors.white,
       );
 

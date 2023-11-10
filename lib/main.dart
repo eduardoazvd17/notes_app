@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:notesapp/src/core/utils/route_utils.dart';
 import 'package:notesapp/src/core/utils/theme_utils.dart';
 import 'package:notesapp/src/features/login/presentation/pages/login_page.dart';
+import 'package:notesapp/src/features/notes/presentation/pages/notes_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +15,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'NotesApp',
       theme: ThemeUtils.themeData,
-      home: const LoginPage(),
+      initialRoute: RouteUtils.loginRoute,
+      routes: {
+        RouteUtils.loginRoute: (context) => const LoginPage(),
+        RouteUtils.notesRoute: (context) => const NotesPage(),
+      },
     );
   }
 }
