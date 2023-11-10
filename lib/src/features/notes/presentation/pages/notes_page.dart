@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notesapp/src/core/widgets/custom_scaffold_widget.dart';
 import 'package:notesapp/src/core/widgets/custom_text_field_widget.dart';
@@ -48,7 +47,7 @@ class NotesPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 35),
-                CustomTextFieldWidget(
+                const CustomTextFieldWidget(
                   hint: 'Digite seu texto',
                   textAlign: TextAlign.center,
                 ),
