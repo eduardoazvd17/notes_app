@@ -6,25 +6,20 @@ import 'package:notesapp/src/core/widgets/privacy_policy_widget.dart';
 import 'package:notesapp/src/features/notes/presentation/controllers/notes_controller.dart';
 import 'package:notesapp/src/features/notes/presentation/widgets/note_tile_widget.dart';
 
-class NotesPage extends StatefulWidget {
+class NotesPage extends StatelessWidget {
   final NotesController notesController;
-  const NotesPage({super.key, required this.notesController});
+  late final TextEditingController textController;
+  late final FocusNode focusNode;
 
-  @override
-  State<NotesPage> createState() => _NotesPageState();
-}
-
-class _NotesPageState extends State<NotesPage> {
-  @override
-  void initState() {
-    widget.notesController.loadNotes();
-    super.initState();
-  }
+  NotesPage({super.key, required this.notesController})
+      : textController = TextEditingController(),
+        focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
-    final textController = TextEditingController();
-    final focusNode = FocusNode();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => notesController.loadNotes(),
+    );
 
     return CustomScaffoldWidget(
       child: Column(
@@ -45,20 +40,19 @@ class _NotesPageState extends State<NotesPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Observer(
                       builder: (_) {
-                        if (widget.notesController.notes == null) {
+                        if (notesController.notes == null) {
                           return const Center(
                             child: CircularProgressIndicator(),
                           );
-                        } else if (widget.notesController.notes!.isEmpty) {
+                        } else if (notesController.notes!.isEmpty) {
                           return const Center(
                             child: Text('Não há notas adicionadas'),
                           );
                         } else {
                           return ListView.builder(
-                            itemCount: widget.notesController.notes!.length,
+                            itemCount: notesController.notes!.length,
                             itemBuilder: (context, index) {
-                              final noteModel =
-                                  widget.notesController.notes![index];
+                              final noteModel = notesController.notes![index];
                               return NoteTileWidget(noteModel: noteModel);
                             },
                           );
@@ -70,7 +64,7 @@ class _NotesPageState extends State<NotesPage> {
                 const SizedBox(height: 35),
                 Observer(builder: (_) {
                   return CustomTextFieldWidget(
-                    enabled: widget.notesController.notes != null,
+                    enabled: notesController.notes != null,
                     autofocus: true,
                     focusNode: focusNode,
                     controller: textController,
@@ -78,7 +72,7 @@ class _NotesPageState extends State<NotesPage> {
                     textAlign: TextAlign.center,
                     onSubmitted: (text) {
                       if (text.trim().isEmpty) return;
-                      widget.notesController.add(text.trim());
+                      notesController.add(text.trim());
                       textController.clear();
                       focusNode.requestFocus();
                     },

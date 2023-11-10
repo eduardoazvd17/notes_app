@@ -11,7 +11,14 @@ import '../../../../core/utils/theme_utils.dart';
 
 class LoginPage extends StatelessWidget {
   final LoginController loginController;
-  const LoginPage({super.key, required this.loginController});
+  late final TextEditingController loginTextFieldController;
+  late final TextEditingController passwordTextFieldController;
+  late final FocusNode passwordTextFieldFocus;
+
+  LoginPage({super.key, required this.loginController})
+      : loginTextFieldController = TextEditingController(),
+        passwordTextFieldController = TextEditingController(),
+        passwordTextFieldFocus = FocusNode();
 
   void _makeLogin(BuildContext context, UserModel userModel) {
     if (loginController.validateUser(userModel.login) &&
@@ -22,10 +29,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final loginTextFieldController = TextEditingController();
-    final passwordTextFieldController = TextEditingController();
-    final passwordTextFieldFocus = FocusNode();
-
     return CustomScaffoldWidget(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
