@@ -4,6 +4,7 @@ import 'package:notesapp/src/core/utils/route_utils.dart';
 import 'package:notesapp/src/core/widgets/custom_scaffold_widget.dart';
 import 'package:notesapp/src/core/widgets/privacy_policy_widget.dart';
 import 'package:notesapp/src/core/widgets/custom_text_field_widget.dart';
+import 'package:notesapp/src/features/login/data/models/user_model.dart';
 import 'package:notesapp/src/features/login/presentation/controllers/login_controller.dart';
 
 import '../../../../core/utils/theme_utils.dart';
@@ -12,10 +13,18 @@ class LoginPage extends StatelessWidget {
   final LoginController loginController;
   const LoginPage({super.key, required this.loginController});
 
+  void _makeLogin(BuildContext context, UserModel userModel) {
+    if (loginController.validateUser(userModel.login) &&
+        loginController.validatePassword(userModel.password)) {
+      Navigator.of(context).pushNamed(RouteUtils.notesRoute);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final loginTextFieldController = TextEditingController();
     final passwordTextFieldController = TextEditingController();
+    final passwordTextFieldFocus = FocusNode();
 
     return CustomScaffoldWidget(
       child: Column(
@@ -30,6 +39,10 @@ class LoginPage extends StatelessWidget {
                   onChanged: loginController.validateUser,
                   prefixIcon: Icons.person,
                   label: 'Usuário',
+                  textInputAction: TextInputAction.next,
+                  onSubmitted: (_) {
+                    passwordTextFieldFocus.requestFocus();
+                  },
                 ),
                 Observer(
                   builder: (_) => Padding(
@@ -44,10 +57,18 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 CustomTextFieldWidget(
+                  focusNode: passwordTextFieldFocus,
                   controller: passwordTextFieldController,
                   onChanged: loginController.validatePassword,
                   prefixIcon: Icons.lock,
                   label: 'Senha',
+                  onSubmitted: (_) => _makeLogin(
+                    context,
+                    UserModel(
+                      login: loginTextFieldController.text,
+                      password: passwordTextFieldController.text,
+                    ),
+                  ),
                 ),
                 Observer(
                   builder: (_) => Padding(
@@ -62,14 +83,12 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 35),
                 ElevatedButton(
-                  onPressed: () {
-                    if (loginController
-                            .validateUser(loginTextFieldController.text) &&
-                        loginController.validatePassword(
-                            passwordTextFieldController.text)) {
-                      Navigator.of(context).pushNamed(RouteUtils.notesRoute);
-                    }
-                  },
+                  onPressed: () => _makeLogin(
+                    context,
+                    UserModel(
+                        login: loginTextFieldController.text,
+                        password: passwordTextFieldController.text),
+                  ),
                   style: ThemeUtils.loginButtonStyle,
                   child: const Text('Entrar'),
                 ),

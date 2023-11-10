@@ -9,6 +9,10 @@ class CustomTextFieldWidget extends StatelessWidget {
   final void Function(String)? onChanged;
   final TextEditingController? controller;
   final TextAlign textAlign;
+  final bool obscureText;
+  final void Function(String)? onSubmitted;
+  final TextInputAction textInputAction;
+  final FocusNode? focusNode;
   const CustomTextFieldWidget({
     super.key,
     this.label,
@@ -17,6 +21,10 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.onChanged,
     this.controller,
     this.textAlign = TextAlign.left,
+    this.obscureText = false,
+    this.onSubmitted,
+    this.textInputAction = TextInputAction.done,
+    this.focusNode,
   });
 
   @override
@@ -39,9 +47,13 @@ class CustomTextFieldWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
               child: TextField(
+                focusNode: focusNode,
                 controller: controller,
                 onChanged: onChanged,
                 textAlign: textAlign,
+                onSubmitted: onSubmitted,
+                keyboardType: TextInputType.text,
+                textInputAction: textInputAction,
                 decoration: InputDecoration(
                   hintText: hint,
                   hintStyle: ThemeUtils.boldTextStyle,
