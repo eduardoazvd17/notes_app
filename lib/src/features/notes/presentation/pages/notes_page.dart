@@ -68,8 +68,10 @@ class NotesPage extends StatelessWidget {
                                     } else {
                                       textController.text = note.text;
                                     }
+                                    focusNode.requestFocus();
                                   },
                                   onDelete: (note) {
+                                    focusNode.unfocus();
                                     showDialog(
                                       context: context,
                                       builder: (_) {
@@ -81,7 +83,6 @@ class NotesPage extends StatelessWidget {
                                             TextButton(
                                               onPressed: () {
                                                 notesController.remove(note);
-
                                                 Navigator.of(context).pop();
                                               },
                                               child: const Text('Sim'),
@@ -95,7 +96,7 @@ class NotesPage extends StatelessWidget {
                                           ],
                                         );
                                       },
-                                    );
+                                    ).then((_) => focusNode.requestFocus());
                                   },
                                 ).animate().fade(),
                               );
