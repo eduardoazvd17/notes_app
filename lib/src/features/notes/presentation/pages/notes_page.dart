@@ -33,7 +33,7 @@ class NotesPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  height: 300,
+                  height: MediaQuery.of(context).size.height * .35,
                   width: MediaQuery.of(context).size.width * .75,
                   decoration: BoxDecoration(
                     color: Colors.white,
