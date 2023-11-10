@@ -18,7 +18,9 @@ class NotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback(
-      (_) => notesController.loadNotes(),
+      (_) => notesController.loadNotes().then(
+            (_) => focusNode.requestFocus(),
+          ),
     );
 
     return CustomScaffoldWidget(
